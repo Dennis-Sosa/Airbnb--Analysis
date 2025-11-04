@@ -140,18 +140,32 @@ Based on the [Amazon Business Intelligence Engineer Interview Guide](https://dat
 ```
 Airbnb--Analysis/
 ├── 📓 airbnb_analysis.ipynb      # Main analysis notebook (full EDA)
-├── 🔧 etl_pipeline.py             # ETL pipeline module (BIE core skill)
-├── 📊 analysis_queries.py         # SQL-like analytical queries (BIE/DA skill)
-├── 📈 visualizations.py           # Data visualization module (BIE/DS/DA skill)
-├── 🚀 run_analysis.py            # One-command execution script
 ├── 📋 requirements.txt            # Python dependencies
 ├── 📖 README.md                   # Project documentation
-├── ⚡ QUICKSTART.md               # Quick start guide
+├── 📄 LICENSE                     # License file
+├── 🔒 .gitignore                  # Git ignore rules
+│
 ├── 📁 data/                       # Raw data files (20 CSV files)
 │   ├── amsterdam_weekdays.csv
 │   ├── amsterdam_weekends.csv
-│   ├── ... (18 more files)
-└── 📁 docs/                       # Documentation and outputs
+│   ├── athens_weekdays.csv
+│   ├── athens_weekends.csv
+│   ├── barcelona_weekdays.csv
+│   ├── barcelona_weekends.csv
+│   ├── ... (14 more city files)
+│
+├── 📁 src/                        # Source code modules
+│   ├── 🔧 etl_pipeline.py         # ETL pipeline module (BIE core skill)
+│   ├── 📊 analysis_queries.py      # SQL-like analytical queries (BIE/DA skill)
+│   ├── 📈 visualizations.py       # Data visualization module (BIE/DS/DA skill)
+│   └── 🚀 run_analysis.py         # One-command execution script
+│
+└── 📁 docs/                       # Documentation files
+    ├── ⚡ QUICKSTART.md           # Quick start guide
+    ├── 📘 CONTRIBUTING.md         # Contribution guidelines
+    ├── 📗 SKILLS.md               # Skills documentation
+    ├── 📙 GITHUB_SETUP.md         # GitHub setup guide
+    └── 📕 PUSH_GUIDE.md           # Push guide
 ```
 
 ---
@@ -177,10 +191,10 @@ pip install -r requirements.txt
 jupyter notebook airbnb_analysis.ipynb
 
 # Option B: Python script (Production execution)
-python run_analysis.py
+python src/run_analysis.py
 
 # Option C: Run ETL pipeline separately
-python etl_pipeline.py
+python src/etl_pipeline.py
 ```
 
 ---
@@ -198,9 +212,10 @@ python etl_pipeline.py
 - Production-ready error handling
 
 ```python
-from etl_pipeline import AirbnbETLPipeline
+from src.etl_pipeline import AirbnbETLPipeline
+from pathlib import Path
 
-pipeline = AirbnbETLPipeline('.', CITIES, PERIODS)
+pipeline = AirbnbETLPipeline('data', CITIES, PERIODS)
 processed_data = pipeline.run_pipeline()
 
 # Generate data quality report
@@ -237,7 +252,7 @@ quality_report = pipeline.get_data_quality_report(processed_data)
 10. Revenue breakdown by period
 
 ```python
-from analysis_queries import AirbnbAnalytics
+from src.analysis_queries import AirbnbAnalytics
 
 analytics = AirbnbAnalytics(df)
 top_cities = analytics.top_n_cities_by_price(5)
@@ -287,7 +302,7 @@ t_stat, p_value = stats.ttest_ind(weekend_prices, weekday_prices)
 - Location quality analysis
 
 ```python
-from visualizations import AirbnbVisualizations
+from src.visualizations import AirbnbVisualizations
 
 viz = AirbnbVisualizations(df)
 viz.generate_full_dashboard(save_path='dashboard.png')

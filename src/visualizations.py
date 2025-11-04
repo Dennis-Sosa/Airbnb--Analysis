@@ -253,8 +253,10 @@ if __name__ == "__main__":
     # Example usage
     import sys
     
+    from pathlib import Path
     try:
-        df = pd.read_csv('processed_airbnb_data.csv')
+        data_path = Path(__file__).parent.parent / 'processed_airbnb_data.csv'
+        df = pd.read_csv(data_path)
         viz = AirbnbVisualizations(df)
         
         # Generate individual plots

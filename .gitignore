@@ -22,7 +22,7 @@ wheels/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-*.ipynb_checkpoints
+*.ipynb_checkpoints/
 
 # Virtual Environment
 venv/
@@ -37,16 +37,12 @@ ENV/
 *.swo
 *~
 
-# Data files (optional - uncomment if you don't want to track data)
-# *.csv
-# data/
-
-# Output files
+# Data files (processed/generated)
+processed_airbnb_data.csv
+city_summary_statistics.csv
 *.png
 *.jpg
-*.pdf
-!docs/*.png
-!docs/*.jpg
+*.jpeg
 
 # OS
 .DS_Store
@@ -54,8 +50,3 @@ Thumbs.db
 
 # Logs
 *.log
-
-# Temporary files
-*.tmp
-*.bak
-

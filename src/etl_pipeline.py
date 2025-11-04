@@ -176,12 +176,17 @@ class AirbnbETLPipeline:
 
 if __name__ == "__main__":
     # Example usage
+    from pathlib import Path
     CITIES = ['amsterdam', 'athens', 'barcelona', 'berlin', 'budapest',
               'lisbon', 'london', 'paris', 'rome', 'vienna']
     PERIODS = ['weekdays', 'weekends']
     
-    pipeline = AirbnbETLPipeline('.', CITIES, PERIODS)
-    processed_data = pipeline.run_pipeline(output_path='processed_airbnb_data.csv')
+    # Get data directory (parent directory / data)
+    data_dir = Path(__file__).parent.parent / 'data'
+    output_dir = Path(__file__).parent.parent
+    
+    pipeline = AirbnbETLPipeline(str(data_dir), CITIES, PERIODS)
+    processed_data = pipeline.run_pipeline(output_path=str(output_dir / 'processed_airbnb_data.csv'))
     
     # Generate quality report
     quality_report = pipeline.get_data_quality_report(processed_data)

@@ -6,10 +6,13 @@ Business Intelligence Engineer - End-to-End Project Runner
 import sys
 from pathlib import Path
 
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 # Import modules
-from etl_pipeline import AirbnbETLPipeline
-from analysis_queries import AirbnbAnalytics
-from visualizations import AirbnbVisualizations
+from src.etl_pipeline import AirbnbETLPipeline
+from src.analysis_queries import AirbnbAnalytics
+from src.visualizations import AirbnbVisualizations
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -20,7 +23,7 @@ def main():
     CITIES = ['amsterdam', 'athens', 'barcelona', 'berlin', 'budapest',
               'lisbon', 'london', 'paris', 'rome', 'vienna']
     PERIODS = ['weekdays', 'weekends']
-    DATA_DIR = '.'
+    DATA_DIR = Path(__file__).parent.parent / 'data'
     
     print("=" * 60)
     print("AIRBNB SUPPLY ANALYSIS - BUSINESS INTELLIGENCE ENGINEER PROJECT")
@@ -30,8 +33,9 @@ def main():
     # Step 1: ETL Pipeline
     print("STEP 1: Running ETL Pipeline...")
     print("-" * 60)
-    pipeline = AirbnbETLPipeline(DATA_DIR, CITIES, PERIODS)
-    processed_data = pipeline.run_pipeline(output_path='processed_airbnb_data.csv')
+    pipeline = AirbnbETLPipeline(str(DATA_DIR), CITIES, PERIODS)
+    output_dir = Path(__file__).parent.parent
+    processed_data = pipeline.run_pipeline(output_path=str(output_dir / 'processed_airbnb_data.csv'))
     print()
     
     # Step 2: Analysis Queries

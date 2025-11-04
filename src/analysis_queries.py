@@ -216,8 +216,10 @@ if __name__ == "__main__":
     import sys
     
     # Load data
+    from pathlib import Path
     try:
-        df = pd.read_csv('processed_airbnb_data.csv')
+        data_path = Path(__file__).parent.parent / 'processed_airbnb_data.csv'
+        df = pd.read_csv(data_path)
         analytics = AirbnbAnalytics(df)
         
         print("=== Top 5 Cities by Price ===")
